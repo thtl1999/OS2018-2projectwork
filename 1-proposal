@@ -1,10 +1,10 @@
 Phase 1
 1.	Kind of Linux Kernel
-Linux Kernel is the lowest level of software that manage resources effectively in Linux operating system. Linux use monolithic kernel system that include file system, scheduler, networking, memory management, IPC.
-Among those, process scheduler is a basic element of multitasking operating systems such as Linux. We felt that process scheduling was quite interesting. And there is a lot of information about process scheduling. So, from these kernel systems, we select Linux scheduler to analyze and optimize.
+Linux Kernel is the lowest level of software that manage resources effectively in Linux operating system. Linux use monolithic kernel system that include file system, scheduler, networking, memory management, IPC, and extra.
+Among those kernel modules, process scheduler handles CPU to switch between process to process so that CPU continually do its job. We call it multitasking. In these days, it become an essential feature of operating system. Process scheduler Not only offers multitasking ability, but makes CPU more efficient. We are going to study how the process scheduler works and modify it for good.
 
 2.	Introduction of Linux Scheduler
-The purpose of the processor scheduler is to:
+The purpose of the processor scheduler is to
 -	Decides the order that jobs/processes/requests called task in OS get processed.
 -	Give a running system process a finite resource, called processor run time.
 -	Ensure fast response time for each process.
@@ -18,17 +18,17 @@ Linux Scheduling basic principles:
 -	Priority-based
 	Static priority: Determine at runtime
 	Dynamic priority: Variation during runtime monitoring
--	Preemptive Scheduling: If the unlocked block has a higher priority than the currently executing process, it immediately executes the higher priority task
-Task is the smallest unit that can schedule process or thread in Linux. a Scheduling tasks effectively, one can make optimal use of the resources available in the computer.
-5 scheduler kernels (Stop scheduler, Deadline scheduler, RT scheduler, CFS scheduler, Idle-task scheduler) are prepared, user task can choose each scheduler for selecting schedule policy.
+-	Preemptive Scheduling: If the unlocked block has a higher priority than the currently executing process, it immediately switches to the higher priority task.
+Task is the smallest unit that can schedule process or thread in Linux. Scheduling tasks can effectively make optimal use of the resources available in the computer.
+5 scheduler kernels (Stop scheduler, Deadline scheduler, RT scheduler, CFS scheduler and Idle-task scheduler) are exist. User task can choose each scheduler for selecting schedule policy.
 Processing hierarchy is as follows.
 
 
-Stop scheduler : Have highest priority. Not allow migration to another CPU. Reject all request. allow number of stop task and runtime calculation.
-Deadline scheduler : Operate on EDF(Earliest Deadline First) + CBS(Constant Bandwidth Server) algorithm. DL task that approach deadline closely has higher priority.
-RT scheduler : Using array called RT run queue, task are arranged as priority 0(highest) ~ 99(lowest).
-CFS scheduler : Using red-black tree, implement time-line of task execution. As weight of task called ‘nice’, time slice is allocated to each task proportionately.
-Idle-task scheduler : As lowest priority, always be preemption to operate another task. Idle task is designated per core.
+Stop scheduler: Have highest priority. Not allow migration to another CPU. Reject all request. allow number of stop task and runtime calculation.
+Deadline scheduler: Operate on EDF(Earliest Deadline First) + CBS(Constant Bandwidth Server) algorithm. DL task that approach deadline closely has higher priority.
+RT scheduler: Using array called RT run queue, tasks are arranged as priority 0(highest) to 99(lowest).
+CFS scheduler: Using red-black tree, implement time-line of task execution. As weight of task called ‘nice’, time slice is allocated to each task proportionately.
+Idle-task scheduler: As lowest priority, always be preemption to operate another task. Idle task is designated per core.
 
 3.	Role of Team members
 2014314751 김민성: Compare the performance between the original and modified modules and Draw diagram of the entire module
